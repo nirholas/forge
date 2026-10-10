@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>@three-ws/forge: Text/image/sketch to a textured, rig-ready 3D GLB in one call</title>
+<meta name="description" content="Text/image/sketch to a textured, rig-ready 3D GLB in one call. The three.ws Forge generation SDK: free TRELLIS lane, pay-per-call USDC tiers over x402, and auto-rigging.">
+<link rel="canonical" href="https://nirholas.github.io/forge/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="@three-ws/forge">
+<meta property="og:description" content="Text/image/sketch to a textured, rig-ready 3D GLB in one call. The three.ws Forge generation SDK: free TRELLIS lane, pay-per-call USDC tiers over x402, and auto-rigging.">
+<meta property="og:url" content="https://nirholas.github.io/forge/">
+<meta property="og:image" content="https://nirholas.github.io/forge/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="text/plain" href="https://nirholas.github.io/forge/llms.txt" title="llms.txt">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"@three-ws/forge","description":"Text/image/sketch to a textured, rig-ready 3D GLB in one call. The three.ws Forge generation SDK: free TRELLIS lane, pay-per-call USDC tiers over x402, and auto-rigging.","codeRepository":"https://github.com/nirholas/forge","url":"https://nirholas.github.io/forge/","programmingLanguage":"JavaScript","license":"https://spdx.org/licenses/Apache-2.0","version":"0.2.1","runtimePlatform":"Node.js","isPartOf":{"@type":"WebSite","name":"three.ws","url":"https://three.ws"}}</script>
+<style>
+:root{--bg:#fff;--fg:#0f172a;--mut:#475569;--line:#e2e8f0;--code:#f1f5f9;--acc:#6d28d9}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1020;--fg:#e2e8f0;--mut:#94a3b8;--line:#1e293b;--code:#111a33;--acc:#a78bfa}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}
+header{border-bottom:1px solid var(--line)}.bar{max-width:880px;margin:0 auto;padding:14px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.bar a{color:var(--mut);text-decoration:none;font-size:14px}.bar a:hover,.bar a:focus-visible{color:var(--acc)}.bar b{color:var(--fg);margin-right:auto}
+main{max-width:880px;margin:0 auto;padding:28px 20px 80px}h1,h2,h3{line-height:1.25}h2{margin-top:2.2em;padding-bottom:.3em;border-bottom:1px solid var(--line)}
+a{color:var(--acc)}pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow:auto}code{background:var(--code);padding:.1em .35em;border-radius:4px;font-size:.92em}pre code{padding:0;background:none}
+table{border-collapse:collapse;display:block;overflow:auto}th,td{border:1px solid var(--line);padding:6px 10px;text-align:left}img{max-width:100%}
+</style>
+</head>
+<body>
+<header><nav class="bar" aria-label="Project"><b>@three-ws/forge</b><a href="https://github.com/nirholas/forge">GitHub</a><a href="https://www.npmjs.com/package/@three-ws/forge">npm</a><a href="llms.txt">llms.txt</a><a href="https://three.ws">three.ws</a></nav></header>
+<main>
+<p align="center">
+  <a href="https://three.ws"><img src="https://three.ws/three-ws-mcp-icon.svg" width="72" height="72" alt="three.ws" /></a>
+</p><h1 align="center">@three-ws/forge</h1><p align="center"><strong>Text, image, or sketch → a textured, rig-ready 3D <code>.glb</code> in one call.</strong></p><p align="center">
+  <a href="https://www.npmjs.com/package/@three-ws/forge"><img alt="npm" src="https://img.shields.io/npm/v/@three-ws/forge?logo=npm&color=cb3837"></a>
+  <a href="https://www.npmjs.com/package/@three-ws/forge"><img alt="downloads" src="https://img.shields.io/npm/dm/@three-ws/forge?color=cb3837"></a>
+  <img alt="license" src="https://img.shields.io/npm/l/@three-ws/forge?color=3b82f6">
+  <img alt="node" src="https://img.shields.io/node/v/@three-ws/forge?color=339933&logo=node.js">
+</p><p align="center">
+  <a href="#install">Install</a> ·
+  <a href="#quick-start">Quick start</a> ·
+  <a href="#api">API</a> ·
+  <a href="#how-it-works">How it works</a> ·
+  <a href="#pricing">Pricing</a> ·
+  <a href="https://three.ws/forge">three.ws</a>
+</p><hr>
+<blockquote>
+<p><code>@three-ws/forge</code> is the official client for the three.ws <strong>Forge</strong> - the
+generation engine behind <a href="https://three.ws/forge">three.ws/forge</a>. It turns a
+prompt, a photo, or a sketch into a watertight, textured GLB, and can
+auto-rig that GLB into an animation-ready humanoid. It wraps the public,
+auth-free <code>/api/forge</code> endpoint: a free <a href="https://github.com/microsoft/TRELLIS">TRELLIS</a>
+lane on NVIDIA NIM, paid high-detail tiers billed in USDC over
+<a href="https://x402.org">x402</a>, and bring-your-own-key geometry backends
+(Meshy, Tripo, Rodin). It pairs with <a href="https://www.npmjs.com/package/@three-ws/avatar"><code>@three-ws/avatar</code></a></p>
+<ul>
+<li>Forge <em>makes</em> the model, <code>@three-ws/avatar</code> <em>renders</em> it.</li>
+</ul>
+</blockquote>
+<h2>Why</h2>
+<p>Every &quot;text-to-3D&quot; you find is either a closed playground with no API, or a raw
+model endpoint that hands you an untextured mesh and leaves rigging, polygon
+budgets, provider fallback, job polling, and billing to you. Forge is the whole
+pipeline, done once:</p>
+<ul>
+<li><strong>One call, a real GLB.</strong> <code>forge(&#39;a chrome robot&#39;)</code> resolves to a hosted,
+durable <code>.glb</code> URL plus a <a href="https://three.ws/forge">three.ws viewer</a> link.</li>
+<li><strong>Free first.</strong> Text prompts default to the free NVIDIA NIM / TRELLIS lane - no key, no wallet, no card.</li>
+<li><strong>Scales with the asset.</strong> Three quality tiers (draft → standard → high) map
+to real polygon budgets and PBR texturing. Pay per call in USDC only when you
+reach for the paid tiers.</li>
+<li><strong>Rig-ready.</strong> One flag chains generation into auto-rigging, so the output
+drops straight into the three.ws animation runtime - idle, walk, emotes.</li>
+</ul>
+<p>This is the SDK twin of the <a href="https://three.ws/docs/mcp-3d-studio">3D Studio MCP server</a>,
+the same engine, exposed as plain functions instead of MCP tools.</p>
+<h2>Install</h2>
+<pre><code class="language-bash">npm install @three-ws/forge
+</code></pre>
+<p>Zero runtime dependencies. Works in Node 18+ and the browser (uses <code>fetch</code>).
+For rendering the result, add <a href="https://www.npmjs.com/package/@three-ws/avatar"><code>@three-ws/avatar</code></a>.</p>
+<h2>Quick start</h2>
+<p>The free lane needs no key:</p>
+<pre><code class="language-js">import { forge } from &#39;@three-ws/forge&#39;;
+
+const model = await forge(&#39;a chrome robot with neon trim&#39;, { tier: &#39;draft&#39; });
+
+console.log(model.glbUrl);  // → durable https://…/forge/…​.glb
+console.log(model.backend); // → which engine actually produced it
+</code></pre>
+<p><code>glbUrl</code> is a durable CDN URL you can hand straight to a viewer. <code>viewerUrl</code> is
+the shareable three.ws link, and it is <code>null</code> unless the API attached a creation
+id (the anonymous free lane usually does not).</p>
+<p>A fuller run - high tier, geometry-first, then auto-rig:</p>
+<pre><code class="language-js">import { forge, rig } from &#39;@three-ws/forge&#39;;
+
+const model = await forge(&#39;a stylized fox, full body, T-pose&#39;, {
+  tier: &#39;high&#39;,        // draft | standard | high
+  path: &#39;geometry&#39;,    // image | geometry | sketch
+  providerKey: process.env.MESHY_KEY, // BYOK for the geometry path
+});
+
+const rigged = await rig(model.glbUrl); // animation-ready humanoid GLB
+console.log(rigged.glbUrl);
+</code></pre>
+<p>From an image or a sketch:</p>
+<pre><code class="language-js">// Photo → 3D
+await forge({ images: [&#39;https://three.ws/avatars/thumbs/default.png&#39;], prompt: &#39;a 3D character&#39; });
+
+// Drawing + a name → geometry (no textures)
+await forge({ images: [&#39;data:image/png;base64,…&#39;], prompt: &#39;a sword&#39;, path: &#39;sketch&#39; });
+</code></pre>
+<h2>API</h2>
+<h3><code>forge(promptOrInput, options?) → Promise&lt;ForgeResult&gt;</code></h3>
+<p>Generate a GLB from text, image(s), or a sketch. Accepts a bare prompt string,
+or an input object.</p>
+<p><strong>Input</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>prompt</code></td>
+<td><code>string</code></td>
+<td>Text description. Required for text + sketch paths.</td>
+</tr>
+<tr>
+<td><code>images</code></td>
+<td><code>string[]</code></td>
+<td>One or more image URLs / data URIs. Switches to image→3D.</td>
+</tr>
+<tr>
+<td><code>aspectRatio</code></td>
+<td><code>string</code></td>
+<td>Reference-image aspect for the <code>image</code> path, e.g. <code>&quot;1:1&quot;</code>.</td>
+</tr>
+</tbody></table>
+<p><strong>Options</strong></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>path</code></td>
+<td><code>&#39;image&#39; | &#39;geometry&#39; | &#39;sketch&#39;</code></td>
+<td><code>&#39;image&#39;</code></td>
+<td>How geometry is produced, see <a href="#how-it-works">How it works</a>.</td>
+</tr>
+<tr>
+<td><code>tier</code></td>
+<td><code>&#39;draft&#39; | &#39;standard&#39; | &#39;high&#39;</code></td>
+<td><code>&#39;standard&#39;</code></td>
+<td>Polygon budget + texture richness.</td>
+</tr>
+<tr>
+<td><code>backend</code></td>
+<td><code>string</code></td>
+<td>auto</td>
+<td>Force a generation backend. Read the live ids from <code>catalog()</code>.</td>
+</tr>
+<tr>
+<td><code>providerKey</code></td>
+<td><code>string</code></td>
+<td>n/a</td>
+<td>BYOK key for the <code>geometry</code> path (Meshy/Tripo/Rodin). Overrides the client-level key, and is resent on every poll.</td>
+</tr>
+<tr>
+<td><code>payWith</code></td>
+<td><code>&#39;credits&#39; | &#39;x402&#39;</code></td>
+<td><code>&#39;credits&#39;</code></td>
+<td>Billing lane, see <a href="#pricing">Pricing</a>. <code>&#39;x402&#39;</code> switches endpoints.</td>
+</tr>
+<tr>
+<td><code>pollIntervalMs</code></td>
+<td><code>number</code></td>
+<td><code>2500</code></td>
+<td>Gap between job polls.</td>
+</tr>
+<tr>
+<td><code>timeoutMs</code></td>
+<td><code>number</code></td>
+<td><code>180000</code></td>
+<td>Give up on a job that never finishes.</td>
+</tr>
+<tr>
+<td><code>headers</code></td>
+<td><code>object</code></td>
+<td>n/a</td>
+<td>Extra headers merged into every request for this call.</td>
+</tr>
+<tr>
+<td><code>signal</code></td>
+<td><code>AbortSignal</code></td>
+<td>-</td>
+<td>Cancel an in-flight generation.</td>
+</tr>
+<tr>
+<td><code>onProgress</code></td>
+<td><code>(job) =&gt; void</code></td>
+<td>-</td>
+<td>Called on each poll tick with the latest job state.</td>
+</tr>
+</tbody></table>
+<p><strong>Returns</strong> <code>ForgeResult</code></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>glbUrl</code></td>
+<td><code>string</code></td>
+<td>Durable hosted GLB URL.</td>
+</tr>
+<tr>
+<td><code>viewerUrl</code></td>
+<td><code>string | null</code></td>
+<td>Shareable three.ws viewer link. <code>null</code> when the response carried no creation id.</td>
+</tr>
+<tr>
+<td><code>jobId</code></td>
+<td><code>string | null</code></td>
+<td><code>null</code> when the backend returned synchronously.</td>
+</tr>
+<tr>
+<td><code>creationId</code></td>
+<td><code>string | null</code></td>
+<td>Gallery/creation id, when the lane records one.</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>&#39;done&#39;</code></td>
+<td>Resolved jobs are always <code>done</code>; failures throw.</td>
+</tr>
+<tr>
+<td><code>path</code> / <code>tier</code> / <code>backend</code></td>
+<td><code>string | null</code></td>
+<td>What actually produced the mesh.</td>
+</tr>
+<tr>
+<td><code>etaSeconds</code></td>
+<td><code>number | null</code></td>
+<td>Backend ETA at submit time.</td>
+</tr>
+<tr>
+<td><code>estimatedCredits</code></td>
+<td><code>number | null</code></td>
+<td>BYOK vendor spend estimate, where the backend reports one.</td>
+</tr>
+<tr>
+<td><code>durable</code></td>
+<td><code>boolean</code></td>
+<td><code>true</code> once the GLB has been copied to three.ws storage.</td>
+</tr>
+<tr>
+<td><code>raw</code></td>
+<td><code>object</code></td>
+<td>The untouched API response, for anything not mapped above.</td>
+</tr>
+</tbody></table>
+<p><code>forge()</code> submits to <code>POST /api/forge</code>, then polls <code>GET /api/forge?job=&lt;id&gt;</code>
+until the job is <code>done</code> (the free NVIDIA lane often returns synchronously, with
+no polling). Failures reject with a typed
+<a href="#errors--edge-cases"><code>ThreeWsError</code></a>.</p>
+<h3><code>rig(glbUrl, options?) → Promise&lt;ForgeResult&gt;</code></h3>
+<p>Auto-rig an existing GLB into an animation-ready humanoid. Wraps
+<code>POST /api/forge?action=rig { glb_url }</code>. Returns the same <code>ForgeResult</code> shape
+with a rigged <code>glbUrl</code>.</p>
+<h3><code>catalog() → Promise&lt;Catalog&gt;</code></h3>
+<p>Fetch the live tier / backend / cost matrix (<code>GET /api/forge?catalog=1</code>), the
+single source of truth for prices, ETAs, which backends are configured, and
+which paths each serves. Use it to render a picker before the user commits.</p>
+<h3><code>getJob(jobId, options?) → Promise&lt;ForgeResult&gt;</code></h3>
+<p>Read one job&#39;s current state without waiting for it to finish, so you can drive
+your own progress UI, resume after a restart, or poll from a different process
+than the one that submitted. Wraps <code>GET /api/forge?job=&lt;id&gt;</code> and returns the
+same shape <code>forge()</code> resolves to, at whatever status the job is in right now.
+Pass <code>providerKey</code> if the job was submitted with a BYOK key: the API re-resolves
+the key on every poll and cannot report on the job without it.</p>
+<pre><code class="language-js">const job = await getJob(&#39;job_abc&#39;, { providerKey: process.env.MESHY_KEY });
+console.log(job.status); // &#39;queued&#39; | &#39;running&#39; | &#39;done&#39; | &#39;failed&#39;
+</code></pre>
+<h3><code>createForge(clientOptions?) → ForgeClient</code></h3>
+<p>Bind a base URL, <code>fetch</code>, and credentials once and reuse them. The bare
+<code>forge</code> / <code>rig</code> / <code>catalog</code> / <code>getJob</code> exports are a shared default client with
+no options; reach for <code>createForge</code> when you need any of these:</p>
+<table>
+<thead>
+<tr>
+<th>Client option</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>baseUrl</code></td>
+<td><code>string</code></td>
+<td>API origin. Defaults to <code>THREE_WS_BASE_URL</code>, then <code>https://three.ws</code>.</td>
+</tr>
+<tr>
+<td><code>fetch</code></td>
+<td><code>typeof fetch</code></td>
+<td>Bring your own, e.g. a payment-aware fetch that settles 402s.</td>
+</tr>
+<tr>
+<td><code>apiKey</code></td>
+<td><code>string</code></td>
+<td>Sent as <code>Authorization: Bearer …</code>, for the credits lane.</td>
+</tr>
+<tr>
+<td><code>providerKey</code></td>
+<td><code>string</code></td>
+<td>Default BYOK key. A per-call <code>providerKey</code> wins.</td>
+</tr>
+<tr>
+<td><code>headers</code></td>
+<td><code>object</code></td>
+<td>Default headers on every request.</td>
+</tr>
+</tbody></table>
+<p>It returns <code>{ forge, rig, catalog, getJob }</code> with identical signatures:</p>
+<pre><code class="language-js">import { createForge } from &#39;@three-ws/forge&#39;;
+import { x402Client } from &#39;@x402/core/client&#39;;
+import { ExactSvmScheme } from &#39;@x402/svm/exact/client&#39;;
+import { wrapFetchWithPayment } from &#39;@x402/fetch&#39;;
+import { createKeyPairSignerFromBytes } from &#39;@solana/kit&#39;;
+import bs58 from &#39;bs58&#39;;
+
+const signer = await createKeyPairSignerFromBytes(bs58.decode(process.env.SOLANA_SECRET_KEY));
+const payer = new x402Client();
+payer.register(&#39;solana:*&#39;, new ExactSvmScheme(signer));
+
+const client = createForge({ fetch: wrapFetchWithPayment(globalThis.fetch, payer) });
+const paid = await client.forge(&#39;a marble bust&#39;, { tier: &#39;high&#39;, payWith: &#39;x402&#39; });
+</code></pre>
+<h2>How it works</h2>
+<p>Two orthogonal axes describe every request - <code>path</code> (how geometry is produced)
+and <code>tier</code> (how much budget to spend):</p>
+<pre><code>prompt / image / sketch
+        │
+        ▼
+   ┌──────────┐   image     ┌───────────────────────────────┐
+   │  path =  ├────────────▶ FLUX/Imagen → TRELLIS·Hunyuan3D │  fast default, free lane
+   │          ├─ geometry ─▶ Meshy/Tripo/Rodin native text→mesh│  BYOK, higher detail ceiling
+   │          ├─ sketch ───▶ TripoSG-scribble                │  drawing + name → raw geometry
+   └──────────┘             └───────────────┬───────────────┘
+                                            ▼
+                                   textured / untextured GLB
+                                            │ (action=rig)
+                                            ▼
+                                   rigged humanoid GLB
+</code></pre>
+<ul>
+<li><strong><code>image</code></strong> (default) - text is painted into a reference image, then
+reconstructed to a mesh. Fast, and the free lane lives here.</li>
+<li><strong><code>geometry</code></strong> - a native 3D model emits mesh geometry directly, so detail
+isn&#39;t capped by a single synthesized view. Bring your own Meshy, Tripo, or Rodin key.</li>
+<li><strong><code>sketch</code></strong> - a drawing plus a prompt naming it drives TripoSG-scribble to
+raw geometry (no textures).</li>
+</ul>
+<p>Backends declare which paths they serve and whether they need a key. If a
+selected backend isn&#39;t configured, Forge returns a clean error state - it never
+fabricates a model.</p>
+<h2>Pricing</h2>
+<p>The browser-facing lane on <code>/api/forge</code> is free where the free engines can serve
+the request, and asks for an account (credits) where they cannot. There is also
+a pay-per-call twin at <code>POST /api/x402/forge</code> for agents with a wallet and no
+account: one USDC payment, one generation, no signup. <code>payWith</code> picks between
+them.</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Polygons (target)</th>
+<th>PBR</th>
+<th>Pay-per-call price</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>draft</strong></td>
+<td>~12k</td>
+<td>no</td>
+<td><strong>$0.05</strong></td>
+</tr>
+<tr>
+<td><strong>standard</strong></td>
+<td>~30k</td>
+<td>no</td>
+<td><strong>$0.15</strong></td>
+</tr>
+<tr>
+<td><strong>high</strong></td>
+<td>~200k</td>
+<td>yes</td>
+<td><strong>$0.50</strong></td>
+</tr>
+</tbody></table>
+<p>Prices are flat per call, quoted in USDC (6-decimal atomics) and settled on
+Solana. They are authoritative in <code>catalog()</code>, so read them at runtime rather
+than hardcoding.</p>
+<pre><code class="language-js">// Pay-per-call: no account, no key, just a wallet.
+const model = await forge(&#39;a marble bust&#39;, { tier: &#39;high&#39;, payWith: &#39;x402&#39; });
+</code></pre>
+<p>Because the x402 endpoint picks its own generation lane, it does not accept
+<code>path</code>, <code>backend</code>, or <code>providerKey</code>; passing one throws <code>invalid_input</code> before
+any request is sent. Without a payment-aware <code>fetch</code> the first call rejects with
+<code>PaymentRequiredError</code>, whose <code>accepts</code> carries the challenge (asset, amount,
+network, payTo) so you can settle it yourself. The live route quotes <strong>Solana
+USDC</strong>, so the payment-aware fetch shown under
+<a href="#createforgeclientoptions--forgeclient"><code>createForge</code></a> is the one to reach for.
+Once paid, the job token is polled for free on the shared
+<code>GET /api/forge?job=&lt;id&gt;</code> endpoint, which is what this SDK does for you.</p>
+<h2>Errors &amp; edge cases</h2>
+<p><code>forge()</code>, <code>rig()</code>, and <code>getJob()</code> reject with a typed <code>ThreeWsError</code> carrying a
+<code>code</code>, an HTTP <code>status</code>, and the parsed <code>body</code>. HTTP 402 rejects with the
+<code>PaymentRequiredError</code> subclass, which adds <code>accepts</code>. Both are exported.</p>
+<table>
+<thead>
+<tr>
+<th><code>code</code></th>
+<th>HTTP</th>
+<th>Meaning</th>
+<th>Recovery</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>invalid_input</code></td>
+<td>n/a</td>
+<td>Rejected client-side before any request: unknown <code>tier</code>/<code>path</code>/<code>payWith</code>, no prompt and no image, or an x402 call carrying <code>path</code>/<code>backend</code>/<code>providerKey</code>.</td>
+<td>Fix the call.</td>
+</tr>
+<tr>
+<td><code>needs_key</code></td>
+<td>501</td>
+<td>The selected BYOK backend needs your own provider key.</td>
+<td>Pass <code>providerKey</code>.</td>
+</tr>
+<tr>
+<td><code>backend_unconfigured</code></td>
+<td>501</td>
+<td>That backend has no credential on the server.</td>
+<td>Omit <code>backend</code> to auto-route, or pick another.</td>
+</tr>
+<tr>
+<td><code>unconfigured</code></td>
+<td>503</td>
+<td>No generation backend is configured at all.</td>
+<td>Retry later, or self-host.</td>
+</tr>
+<tr>
+<td><code>generation_unavailable</code></td>
+<td>503</td>
+<td>Every eligible backend failed or is down.</td>
+<td>Retry, or change <code>path</code>/<code>tier</code>.</td>
+</tr>
+<tr>
+<td><code>payment_required</code></td>
+<td>402</td>
+<td>The x402 lane wants payment. <code>accepts</code> carries the challenge.</td>
+<td>Settle it, or use a payment-aware <code>fetch</code>.</td>
+</tr>
+<tr>
+<td><code>three_hold_required</code></td>
+<td>402</td>
+<td>The paid gate wants a $THREE hold or a per-use payment.</td>
+<td>Hold $THREE, or pay the quoted amount.</td>
+</tr>
+<tr>
+<td><code>insufficient_credits</code></td>
+<td>402</td>
+<td>The account&#39;s credit balance is too low.</td>
+<td>Top up, or use <code>payWith: &#39;x402&#39;</code>.</td>
+</tr>
+<tr>
+<td><code>unauthorized</code></td>
+<td>401</td>
+<td>The credits lane needs a signed-in account.</td>
+<td>Authenticate, or use <code>payWith: &#39;x402&#39;</code>.</td>
+</tr>
+<tr>
+<td><code>rate_limited</code></td>
+<td>429</td>
+<td>Too many submissions from this IP.</td>
+<td>Honour <code>retryAfter</code> on the error.</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td>n/a</td>
+<td>The job did not finish within <code>timeoutMs</code>.</td>
+<td>Raise <code>timeoutMs</code>, or resume with <code>getJob(jobId)</code>.</td>
+</tr>
+<tr>
+<td><code>network_error</code></td>
+<td>n/a</td>
+<td>The request never reached the API.</td>
+<td>Check connectivity / <code>baseUrl</code>.</td>
+</tr>
+<tr>
+<td><code>generation_failed</code></td>
+<td>-</td>
+<td>The backend produced no usable mesh.</td>
+<td>Retry, or change <code>path</code>/<code>backend</code>.</td>
+</tr>
+</tbody></table>
+<p>Every state is designed: a missing key returns <code>needs_key</code> (not a crash), an
+unconfigured backend returns a <code>501</code>/<code>503</code> state (not a fake model). Mirror that
+in your UI.</p>
+<pre><code class="language-js">import { forge, ThreeWsError, PaymentRequiredError } from &#39;@three-ws/forge&#39;;
+
+try {
+  await forge(&#39;a marble bust&#39;, { tier: &#39;high&#39;, payWith: &#39;x402&#39; });
+} catch (err) {
+  if (err instanceof PaymentRequiredError) console.log(err.accepts);
+  else if (err instanceof ThreeWsError) console.log(err.code, err.status);
+  else throw err;
+}
+</code></pre>
+<h2>Examples</h2>
+<p><strong>Agent tool (free, zero-config)</strong> - the same capability is exposed as the
+<code>forge_free</code> MCP tool, so an agent can generate 3D with no wallet:</p>
+<pre><code class="language-js">const { glbUrl } = await forge(&#39;a low-poly treasure chest&#39;, { tier: &#39;draft&#39; });
+</code></pre>
+<p><strong>Browser → render inline</strong> with the sibling viewer:</p>
+<pre><code class="language-html">&lt;script type=&quot;module&quot;&gt;
+  import { forge } from &#39;@three-ws/forge&#39;;
+  import &#39;@three-ws/avatar/viewer&#39;;
+
+  const { glbUrl } = await forge(&#39;a friendly robot&#39;);
+  const el = document.createElement(&#39;three-ws-viewer&#39;);
+  el.setAttribute(&#39;src&#39;, glbUrl);
+  document.body.append(el);
+&lt;/script&gt;
+</code></pre>
+<p><strong>Generate → rig → animate</strong> in one chain, ready for the walk companion:</p>
+<pre><code class="language-js">const base = await forge(&#39;a cartoon astronaut, full body&#39;, { tier: &#39;standard&#39; });
+const rigged = await rig(base.glbUrl);
+// drop rigged.glbUrl into @three-ws/walk or @three-ws/avatar
+</code></pre>
+<h2>Related</h2>
+<ul>
+<li><a href="https://www.npmjs.com/package/@three-ws/avatar"><code>@three-ws/avatar</code></a> - render and animate the GLB Forge produces.</li>
+<li><a href="https://www.npmjs.com/package/@three-ws/walk"><code>@three-ws/walk</code></a> - a rigged Forge model as a page companion.</li>
+<li><a href="https://www.npmjs.com/package/@three-ws/x402-mcp"><code>@three-ws/x402-mcp</code></a>: pay any x402 endpoint from a Solana keypair.</li>
+<li><a href="https://www.npmjs.com/package/@three-ws/avatar-schema"><code>@three-ws/avatar-schema</code></a> - validate on-chain avatar manifests.</li>
+</ul>
+<hr>
+<p align="center">Built by <a href="https://three.ws">three.ws</a> · The only coin is <a href="https://three.ws">$THREE</a></p><hr>
+<p>Part of <a href="https://three.ws">three.ws</a>, the open-source platform for 3D AI agents. This repository is exported from the <a href="https://github.com/nirholas/three.ws/tree/main/packages/forge">monorepo</a>, which is the source of truth: open issues here, and send larger changes there.</p>
+
+</main>
+</body>
+</html>

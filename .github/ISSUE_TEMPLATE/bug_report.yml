@@ -1,0 +1,12 @@
+name: Bug report
+description: Something does not work as documented
+labels: [bug]
+body:
+  - type: input
+    attributes: { label: Version, description: Output of npm ls for this package }
+    validations: { required: true }
+  - type: textarea
+    attributes: { label: What happened, description: What you did, what you expected, what you saw }
+    validations: { required: true }
+  - type: textarea
+    attributes: { label: Minimal reproduction, render: js }

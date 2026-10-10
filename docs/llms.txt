@@ -1,0 +1,17 @@
+# @three-ws/forge
+
+> Text/image/sketch to a textured, rig-ready 3D GLB in one call. The three.ws Forge generation SDK: free TRELLIS lane, pay-per-call USDC tiers over x402, and auto-rigging.
+
+- Repository: https://github.com/nirholas/forge
+- Documentation: https://nirholas.github.io/forge/
+- npm: https://www.npmjs.com/package/@three-ws/forge
+- License: Apache-2.0
+- Part of three.ws: https://three.ws
+
+## Docs
+
+- [README](https://github.com/nirholas/forge/blob/main/README.md): install, usage and full API reference
+- [Full text for LLMs](https://nirholas.github.io/forge/llms-full.txt): the entire README as plain text
+- [AGENTS.md](https://github.com/nirholas/forge/blob/main/AGENTS.md): conventions for coding agents
+- [Security policy](https://github.com/nirholas/forge/blob/main/SECURITY.md)
+- [Contributing](https://github.com/nirholas/forge/blob/main/CONTRIBUTING.md)

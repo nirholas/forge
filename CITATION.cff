@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it as below.
+title: "@three-ws/forge"
+abstract: "Text/image/sketch to a textured, rig-ready 3D GLB in one call. The three.ws Forge generation SDK: free TRELLIS lane, pay-per-call USDC tiers over x402, and auto-rigging."
+type: software
+authors:
+  - name: three.ws contributors
+repository-code: "https://github.com/nirholas/forge"
+url: "https://nirholas.github.io/forge/"
+license: Apache-2.0
+version: 0.2.1

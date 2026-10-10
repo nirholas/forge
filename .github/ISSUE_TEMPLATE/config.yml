@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: three.ws documentation
+    url: https://three.ws/docs
+    about: Platform-level questions
