@@ -6,8 +6,8 @@
     "name": "nirholas"
   },
   "repository": "https://github.com/nirholas/forge",
-  "license": "Apache-2.0",
   "homepage": "https://nirholas.github.io/forge/",
+  "license": "Apache-2.0",
   "keywords": [
     "text-to-3d",
     "image-to-3d",
