@@ -1,0 +1,22 @@
+{
+  "name": "forge",
+  "owner": {
+    "name": "nirholas"
+  },
+  "description": "Generate a textured, rig-ready 3D GLB from text, images or a sketch with the three.ws Forge SDK, and auto-rig existing GLBs.",
+  "plugins": [
+    {
+      "name": "forge",
+      "source": "./",
+      "description": "Generate a textured, rig-ready 3D GLB from text, images or a sketch with the three.ws Forge SDK, and auto-rig existing GLBs.",
+      "tags": [
+        "text-to-3d",
+        "image-to-3d",
+        "glb",
+        "rigging",
+        "generative-ai",
+        "three-ws"
+      ]
+    }
+  ]
+}
